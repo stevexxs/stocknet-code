@@ -364,8 +364,11 @@ class DataPipe:
                 'n_words': aligned_info_dict['n_words'],
                 'n_msgs': aligned_info_dict['n_msgs'],
             }
-
-            yield sample_dict
+			
+            try:
+                yield sample_dict
+            except StopIteration:
+                return
 
     def batch_gen(self, phase):
         batch_size = self._get_batch_size(phase)
@@ -434,7 +437,10 @@ class DataPipe:
                 'n_words_batch': n_words_batch,
             }
 
-            yield batch_dict
+            try:
+                yield batch_dict
+            except StopIteration:
+                return
 
     def batch_gen_by_stocks(self, phase):
         batch_size = 2000
@@ -501,7 +507,10 @@ class DataPipe:
                 'n_words_batch': n_words_batch[:sample_id],
             }
 
-            yield batch_dict
+            try:
+                yield batch_dict
+            except StopIteration:
+                return
 
     def sample_mv_percents(self, phase):
         main_mv_percents = []

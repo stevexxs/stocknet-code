@@ -172,7 +172,8 @@ class Model:
             out_f, out_b = out
             ss_indices = tf.reshape(daily_ss_index_vec, [-1, 1])
 
-            msg_ids = tf.constant(range(0, self.max_n_msgs), dtype=tf.int32, shape=[self.max_n_msgs, 1])  # [0, 1, 2, ...]
+            #msg_ids = tf.constant(range(0, self.max_n_msgs), dtype=tf.int32, shape=[self.max_n_msgs, 1])  # [0, 1, 2, ...]
+            msg_ids = tf.constant(list(range(0, self.max_n_msgs)), dtype=tf.int32, shape=[self.max_n_msgs, 1])  # [0, 1, 2, ...]
             out_id = tf.concat([msg_ids, ss_indices], axis=1)
             # fw, bw and average
             mel_h_f, mel_h_b = tf.gather_nd(out_f, out_id), tf.gather_nd(out_b, out_id)
